@@ -5,7 +5,7 @@ using System.Collections;
 [RequireComponent(typeof(AudioManager))]
 [RequireComponent(typeof(InputManager))]
 //[RequireComponent(typeof(ScreenManager))]
-//[RequireComponent(typeof(MissionManager))]
+[RequireComponent(typeof(MissionManager))]
 public class Managers : MonoBehaviour
 {
     private static GameManager gameManager;
@@ -32,11 +32,11 @@ public class Managers : MonoBehaviour
     //    get { return screenManager; }
     //}
 
-	//private static MissionManager missionManager;
-    //public static MissionManager Mission
-    //{
-    //    get { return missionManager; }
-    //}
+	private static MissionManager missionManager;
+    public static MissionManager Mission
+    {
+        get { return missionManager; }
+    }
 
 	// Use this for initialization
 	void Awake ()
@@ -46,7 +46,7 @@ public class Managers : MonoBehaviour
         audioManager = GetComponent<AudioManager>();
         inputManager = GetComponent<InputManager>();
         //screenManager = GetComponent<ScreenManager>();
-        //missionManager = GetComponent<MissionManager>();
+        missionManager = GetComponent<MissionManager>();
 
         //Make this game object persistant
         DontDestroyOnLoad(gameObject);
