@@ -6,6 +6,7 @@ public class MissionManager : MonoBehaviour
 	
 	public ArrayList players;
 	public Player thePlayer;
+	public Player aiPlayer;
 	public bool isRunning = true;
 	
 	void Awake (){

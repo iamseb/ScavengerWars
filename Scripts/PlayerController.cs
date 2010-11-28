@@ -3,8 +3,8 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-	public float thrustAmount = 100.0f;
-	public float rotationSpeed = 180.0f;
+	public float thrustAmount = 130.0f;
+	public float rotationSpeed = 10.0f;
 	private float lockPos = 0.0f;
 	
 	void Awake() {

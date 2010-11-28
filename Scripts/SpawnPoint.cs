@@ -20,6 +20,16 @@ public class SpawnPoint : MonoBehaviour
 		ship = (Ship)Instantiate(shipType, transform.position, transform.rotation);
 		ship.owner = owner;
 		ship.owner.currentShip = ship;
+		if (ship.owner.isAIPlayer){
+			ship.gameObject.AddComponent("AIPlayerController");
+		} else {
+			ship.gameObject.AddComponent("PlayerController");
+		}
+	}
+	
+	void OnDrawGizmos(){
+		Gizmos.color = Color.green;
+		Gizmos.DrawWireSphere(transform.position, 20.0f);
 	}
 }
 
