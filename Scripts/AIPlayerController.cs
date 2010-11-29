@@ -14,50 +14,57 @@ public class AIPlayerController : MonoBehaviour
 	public float distanceToTarget = 0.0f;
 	public bool isMoving = false;
 	public bool targetsAvailable = true;
+	private Player player;
 	
 	void Awake() {
+		Ship ship = gameObject.GetComponent("Ship") as Ship;
+		player = ship.owner;
 	}
 
 	void Update()
 	{
-		if(!hasTarget && targetsAvailable){
-			Collectible next = FindClosestCollectible();
-			if (next == null) {
-				targetsAvailable = false;
-			}
-			else {
-				currentTarget = next.transform.position;
-				hasTarget = true;	
-			}
-		}
-    	rigidbody.rotation = Quaternion.Euler(lockPos, rigidbody.rotation.eulerAngles.y, lockPos);
-		transform.rotation = Quaternion.Euler(lockPos, transform.rotation.eulerAngles.y, lockPos);
-		transform.position = new Vector3(transform.position.x, 8.0f, transform.position.z);
-		Debug.DrawRay(transform.position, transform.forward * 50, Color.blue);
-		if(hasTarget){
-			distanceToTarget = (transform.position - currentTarget).magnitude;
-			Debug.Log("Distance to target: " + distanceToTarget);
-			float angleToTarget = turnToTarget();
-			if (angleToTarget < 1.0f){
-				if(isPathClear() && distanceToTarget > 20.0f){
-					isMoving = true;	
-				};
-				if(distanceToTarget < 20.0f){
-					isMoving = false;
-					hasTarget = false;
+		if(!player.disabled){
+			if(!hasTarget && targetsAvailable){
+				Collectible next = FindClosestCollectible();
+				if (next == null) {
+					targetsAvailable = false;
+				}
+				else {
+					currentTarget = next.transform.position;
+					hasTarget = true;	
 				}
 			}
-			Debug.DrawLine(transform.position, currentTarget, Color.magenta);
+	    	rigidbody.rotation = Quaternion.Euler(lockPos, rigidbody.rotation.eulerAngles.y, lockPos);
+			transform.rotation = Quaternion.Euler(lockPos, transform.rotation.eulerAngles.y, lockPos);
+			transform.position = new Vector3(transform.position.x, 8.0f, transform.position.z);
+			Debug.DrawRay(transform.position, transform.forward * 50, Color.blue);
+			if(hasTarget){
+				distanceToTarget = (transform.position - currentTarget).magnitude;
+				//Debug.Log("Distance to target: " + distanceToTarget);
+				float angleToTarget = turnToTarget();
+				if (angleToTarget < 1.0f){
+					if(isPathClear() && distanceToTarget > 20.0f){
+						isMoving = true;	
+					};
+					if(distanceToTarget < 20.0f){
+						isMoving = false;
+						hasTarget = false;
+					}
+				}
+				Debug.DrawLine(transform.position, currentTarget, Color.magenta);
+			}
 		}
 	}
 	
-	void FixedUpdate() { //Use FixedUpdate for Physics changes
-		if(isMoving && rigidbody.velocity.magnitude*2 < distanceToTarget) {
-			float thrustModifier = 10.0f * Time.fixedDeltaTime;
-		    rigidbody.AddRelativeForce(Vector3.forward * thrustAmount * thrustModifier, ForceMode.Acceleration);
-		} else if(isMoving && rigidbody.velocity.magnitude*2 >= distanceToTarget) {
-			float thrustModifier = -15.0f * Time.fixedDeltaTime;
-		    rigidbody.AddRelativeForce(Vector3.forward * thrustAmount * thrustModifier, ForceMode.Acceleration);
+	void FixedUpdate() {
+		if(!player.disabled){
+			if(isMoving && rigidbody.velocity.magnitude*2 < distanceToTarget) {
+				float thrustModifier = 10.0f * Time.fixedDeltaTime;
+			    rigidbody.AddRelativeForce(Vector3.forward * thrustAmount * thrustModifier, ForceMode.Acceleration);
+			} else if(isMoving && rigidbody.velocity.magnitude*2 >= distanceToTarget) {
+				float thrustModifier = -15.0f * Time.fixedDeltaTime;
+			    rigidbody.AddRelativeForce(Vector3.forward * thrustAmount * thrustModifier, ForceMode.Acceleration);
+			}
 		}
 	}
 	

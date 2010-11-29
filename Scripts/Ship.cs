@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Ship : MonoBehaviour
 {
-	public float health = 10.0f;
+	public float health = 100.0f;
 	public float fuel = 100.0f;
 	public int collectedCount = 0;
 	public Player owner;
