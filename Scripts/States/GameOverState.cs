@@ -12,8 +12,10 @@ public class GameOverState : GameState
 		gog.showing = true;
 		Debug.Log("About to disable " + Managers.Mission.players.Count + " players");
 		foreach(Player p in Managers.Mission.players){
-			p.currentShip.rigidbody.angularVelocity = Vector3.zero;
-			p.currentShip.rigidbody.velocity = Vector3.zero;
+			if(p.currentShip){
+				p.currentShip.rigidbody.angularVelocity = Vector3.zero;
+				p.currentShip.rigidbody.velocity = Vector3.zero;
+			}
 			p.disabled = true;
 		}
 	}

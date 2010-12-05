@@ -1,29 +1,29 @@
 using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : BasePlayer
 {
-	public float thrustAmount = 130.0f;
-	public float rotationSpeed = 10.0f;
-	private float lockPos = 0.0f;
-	private Player player;
+	public KeyCode fireKey = KeyCode.Space;
+	private ArrayList handledKeys;
 	
-	void Awake() {
-		Ship ship = gameObject.GetComponent("Ship") as Ship;
-		player = ship.owner;
+	new void Awake(){
+		base.Awake();
+		handledKeys = new ArrayList();
+		handledKeys.Add(fireKey);
+		Managers.Input.RegisterHandler(this.gameObject, handledKeys);
 	}
-
-	void Update()
-	{
-		if(!player.disabled){
-	    	rigidbody.rotation = Quaternion.Euler(lockPos, rigidbody.rotation.eulerAngles.y, lockPos);
-			transform.rotation = Quaternion.Euler(lockPos, transform.rotation.eulerAngles.y, lockPos);
-			transform.position = new Vector3(transform.position.x, 8.0f, transform.position.z);
+	
+	void KeyUp(KeyCode key){
+	}
+	
+	void KeyDown(KeyCode key){
+		if(key == fireKey){
+			Fire();
 		}
 	}
 
 	
-	void FixedUpdate() { //Use FixedUpdate for Physics changes
+	void FixedUpdate(){ //Use FixedUpdate for Physics changes
 		if(!player.disabled){
 			float thrustModifier = Input.GetAxis("Vertical");
 			float rotationModifier = Input.GetAxis("Horizontal");

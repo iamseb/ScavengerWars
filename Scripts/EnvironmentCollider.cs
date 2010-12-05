@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class EnvironmentCollider : MonoBehaviour
+public class EnvironmentCollider : Indestructable
 {
 	public float baseDamage = 0.1f;
 	public int scoreRemover = 1;
@@ -12,4 +12,3 @@ public class EnvironmentCollider : MonoBehaviour
     }
 
 }
-

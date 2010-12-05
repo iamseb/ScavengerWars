@@ -8,6 +8,7 @@ public class Ship : MonoBehaviour
 	public int collectedCount = 0;
 	public Player owner;
 	public bool destroyed = false;
+	public MissileBehaviour missileType;
 	
 	public void Damage(float amount) {
 		health -= amount;

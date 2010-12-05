@@ -7,9 +7,11 @@ public class Collectible : MonoBehaviour
 	
 	public void OnTriggerEnter(Collider other){
 		Debug.Log(other.gameObject.name);
-		other.gameObject.SendMessage("Collect", val);
-		Managers.Mission.collectiblesLeft -= 1;
-		Destroy(gameObject);
+		if (other.gameObject.GetComponent("Ship")){
+			other.gameObject.SendMessage("Collect", val);
+			Managers.Mission.collectiblesLeft -= 1;
+			Destroy(gameObject);
+		}
 	}
 	
 }
