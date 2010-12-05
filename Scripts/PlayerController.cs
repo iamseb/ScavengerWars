@@ -5,6 +5,7 @@ public class PlayerController : BasePlayer
 {
 	public KeyCode fireKey = KeyCode.Space;
 	private ArrayList handledKeys;
+	public new float rotationSpeed = 10.0f;
 	
 	new void Awake(){
 		base.Awake();
@@ -21,7 +22,6 @@ public class PlayerController : BasePlayer
 			Fire();
 		}
 	}
-
 	
 	void FixedUpdate(){ //Use FixedUpdate for Physics changes
 		if(!player.disabled){

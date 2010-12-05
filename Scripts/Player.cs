@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
 	public bool disabled = false;
 
 	public void ChangeScore(int val){
-		score += val*10;
+		score += val;
 	}
 	
 	public void AddCollected(int count){

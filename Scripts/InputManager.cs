@@ -25,13 +25,17 @@ public class InputManager : MonoBehaviour
 	
 	void SendKeyDown(KeyCode key) {
 		foreach (GameObject handler in registeredHandlers) {
-			handler.SendMessage("KeyDown", key);
+			if(handler){
+				handler.SendMessage("KeyDown", key);
+			}
 		}		
 	}
 
 	void SendKeyUp(KeyCode key) {
 		foreach (GameObject handler in registeredHandlers) {
-			handler.SendMessage("KeyUp", key);
+			if(handler){
+				handler.SendMessage("KeyUp", key);
+			}
 		}		
 	}
 	
